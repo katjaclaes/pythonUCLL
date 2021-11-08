@@ -40,7 +40,7 @@ Hergebruik van uitvoering bestaat uit 3 grote stukken:
 
 ### Functies en hergebruik
 
-Het **sleutelwoord** bij **functies** is dus **hergebruik**
+Het **sleutelwoord** bij functies is dus **hergebruik**
 
 ### Ingebouwde functies
 
@@ -65,10 +65,10 @@ Hoe gebruik je deze?
 
 Om te starten, voor een functie-call gebruik je de **naam**, **gevolgd** door **haakjes**.
 
-> Nota: de functies hieronder is enkel een voorbeeld om het gebruik te illustreren
+> Nota: de functies hieronder zijn enkel een voorbeeld om het gebruik te illustreren
 > We zien zo dadelijk echte voorbeelden
 
-Stel dat er een functie "an_example_function" zou bestaan, dan je de inhoud van deze functie uitvoeren als volgt:
+Stel dat er een functie "an_example_function" zou bestaan, dan kan je de inhoud van deze functie uitvoeren als volgt:
 
 ~~~python
 an_example_function()
@@ -88,7 +88,7 @@ Een return-waarde is de eerste manier van communiceren met de code in de functie
 
 ### Argumenten
 
-Daarnaast kan je een parameter of  **argument** meegeven aan een functie, voor zover deze functie argument(en) definieert.
+Daarnaast kan je een parameter of **argument** meegeven aan een functie, voor zover deze functie argument(en) definieert.
 
 ~~~
                          """Functie kan meerdere
@@ -119,7 +119,7 @@ Je kan een waarde, variabele (of andere expressies) meegeven als argument
 
 ### Meerdere argumenten
 
-Je ben ook trouwens **niet beperkt tot 1 argument**, een functie kan van **0 tot oneindig aantal argumenten** definieren.
+Je bent trouwens **niet beperkt tot 1 argument**, een functie kan van **0 tot oneindig aantal argumenten** definiëren.
 
 ~~~python
 result = multiply(3,2)
@@ -170,7 +170,7 @@ Om een module te kunnen gebruiken dien je een import-clause toe te voegen, deze 
 
 Om dan de functies te gebruiken volstaat het niet de naam van deze functies te gebruiken
 
-* je moet deze naam prefixen met de module-naam
+* je moet deze naam laten voorafgaan met de module-naam
 * gevolgd door een **punt**
 
 Voor de math-module specifiek kan je volgende gebruiken.
@@ -188,11 +188,10 @@ x = random.randint(0, 100)
 print(x) #prints an int between 0 and 100 (not included)
 ~~~
 
-Voor een volledig overzicht van de standaard-functies (en andere dingen) kan je terecht https://docs.python.org/3/tutorial/stdlib.html (RTFM...)
+Voor een volledig overzicht van de standaard-functies (en andere dingen) kan je terecht op https://docs.python.org/3/tutorial/stdlib.html
 
 ### Zelf functies schrijven
 
-Later gaan we nog zien hoe we zelf modules kunnen ontwikkelen, maar laten we al starten met lokale functies...  
 We starten met een functie die je naam afdrukt:
 
 ~~~python
@@ -211,9 +210,9 @@ Deze functie bevat 2 onderdelen:
     * **Haakjes** (waar je argumenten kan tussenplaatsen)
     * **Eindigend** op een **dubbel punt** (dat een code-block aankondigt)
 * Een **block** (van statements)
-    * Geindenteerd tov de functie
+    * Ingesprongen tov de functie
 
-Dit dubbel punt hadden we al eerder gezien bij condities en loops.   
+Dit dubbelpunt hadden we al eerder gezien bij condities en loops.   
 Dit teken duidt altijd het einde aan van een clausule die vooraf gaat aan een code-block.
 
 > Nota: een functie is een herbruikbare block van statements.  
@@ -242,8 +241,8 @@ $
 
 ### Volgorde is belangrijk
 
-Belangrijk is dat je functie gedeclareerd is voor dat je ze aanroept.  
-Stel dat je de functie "greeting" zou aanroepen voor de declaraite...
+Belangrijk is dat je functie gedeclareerd is **voor** dat je ze aanroept.  
+Stel dat je de functie "greeting" zou aanroepen voor de declaratie...
 
 ~~~python
 greeting()
@@ -262,12 +261,12 @@ Traceback (most recent call last):
 NameError: name 'greeting' is not defined
 ~~~
 
-Opdat code een functie kan aanroepen/gebruiken betekent dit ook dat deze eerder in de "sequentiele uitvoering" dient te worden uitgevoerd.
+Opdat code een functie kan aanroepen/gebruiken betekent dit ook dat deze eerder in de "sequentiële uitvoering" dient te worden uitgevoerd.
 
 ### Argumenten
 
-Je kan een functie **flexibeler** maken door er **argumenten** of parameters er aan toe te voegen.  
-In onderstaand voorbeeld voegen we een argument *"name"* toe, met dit argument kan je de naam bepalen van uit de 
+Je kan een functie **flexibeler** maken door er **argumenten** of parameters aan toe te voegen.  
+In onderstaand voorbeeld voegen we een argument *"name"* toe, met dit argument kan je de naam bepalen vanuit het aanroepen van de functie.
 
 ~~~python
 def greeting(name):
@@ -287,7 +286,7 @@ greeting("Bart")
 greeting("Fons")
 ~~~
 
-Als je deze code dan uitvoert krijg je 2 maal de zelfde uitvoering maar met een andere naam.
+Als je deze code dan uitvoert krijg je 2 maal dezelfde uitvoering maar met een andere naam.
 
 ~~~
 $ python3 greeting.py
@@ -300,7 +299,7 @@ $
 
 ### Meerdere argumenten
 
-Een functie is niet enkel enkel beperkt tot 1 argument maar kan er meerdere gebruiken.  
+Een functie is niet enkel beperkt tot 1 argument maar kan er meerdere gebruiken.  
 In volgend voorbeeld geven we zowel een voor- als achternaam mee...
 
 ~~~python
@@ -345,7 +344,7 @@ Naast input kan zo'n functie ook een output hebben.
 
 In de code kan dit via een **return-statement**
 
-Stel dat je een (onnodige) functie schrijf om de som van 2 variabelen te bereken kan je dit al volt.
+Stel dat je een (onnodige) functie schrijft om de som van 2 variabelen te berekenen.
 
 ~~~python
 def sum(a,b)
@@ -353,7 +352,7 @@ def sum(a,b)
     return result
 ~~~
 
-Via het **return-statement** kan je dan het resultaat van deze som teruggevren aan de aanroepende code opdat deze die kan opvangen in bijvoorbeeld een variabele.
+Via het **return-statement** kan je dan het resultaat van deze som teruggeven aan de aanroepende code opdat deze die kan opvangen in bijvoorbeeld een variabele.
 
 ~~~python
 def sum(a,b)
@@ -365,7 +364,7 @@ print(a) # prints 7
 
 ### Nog een voorbeeld...
 
-We kunnen bijvoorbeeld ook ons eerder voorbeeld (printen van naam en naam) ook nog omvormen naar een functie die - na het geven vna de naam- ook nog de naam opvraagt.  
+We kunnen bijvoorbeeld ook ons eerder voorbeeld omvormen naar een functie die - na het geven van de naam - ook nog de naam opvraagt.  
 We noemen deze voor de gelegenheid "polite_conversation"
 
 ~~~python
@@ -380,10 +379,10 @@ print("OK, thank you, so your name is " + name)
 
 ### Opsplitsen van functies
 
-Een functie kan natuurlijk ook nog een anderen functie aanroepen.
+Een functie kan natuurlijk ook nog een andere functie aanroepen.
 
 ~~~python
-def greeting(name,surname):
+def greeting(surname,name):
     print("hello ")
     print(" from " + name + " " + surname)
 
@@ -436,16 +435,12 @@ NameError: name 'c' is not defined
 Variabelen **binnen een functie** zijn dus **niet bereikbaar** vanuit aanroepende code.   
 
 Variabelen hebben - afhankelijk waar ze worden gedefineerd - een **scope**.  
-Deze scope vanuit welke code deze variabele **bereikbaar** is maar ook de **levenduur** van de variabele.  
+Deze scope bepaalt vanuit welke code deze variabele **bereikbaar** is maar ook de **levensduur** van de variabele.  
 Een lokale variabele wordt namelijk telkens opnieuw geinstantieerd bij het aanroepen van de functie.
 
-### En verder...
+### Onthou
 
-We gaan hier dieper op in het 2de deel van de cursus, onthoudt voorlopig dat **lokale variabelen alleen bestaan binnen het bereik/scope van een functie**
-
-In het volgende deel van de cursus gaan we hier nog verder op in samen met wat meer geavanceerde toepassingen met functies.
-
-Onthoudt vooral ook waarom (en wanneer) je functies moet gebruiken.
+Onthou vooral waarom (en wanneer) je functies moet gebruiken.
 
 * **Leesbaarheid** en **modulariteit** -> Opdelen van je code in stukken
 * **Hergebruik** -> Code die je meerdere malen wil gebruiken zonder copy/paste
