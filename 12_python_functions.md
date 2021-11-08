@@ -7,8 +7,8 @@ De laatste grote blok die we bespreken in de basis introductie is het hergebruik
                     _
                      \          +------------------------------+
                 ______\         |                              |             * functies
-                      /         |     Hergebruik uitvoering    |             * modules (implementatie 2de deel cursus)
-                    _/          |                              |             * classes en objecten (2de deel cursus)
+                      /         |     Hergebruik uitvoering    |             * modules 
+                    _/          |                              |             * classes en objecten 
                             +---+------------------------------+---+
                             |                                      |         * while+loops
                             |        Repetitieve uitvoering        |         * loop+state
@@ -32,26 +32,15 @@ Hergebruik van uitvoering bestaat uit 3 grote stukken:
     * **Stuk code** dat je **meermaals** kan **aanroepen**
     * Heeft een **naam** zoals een variabele
 * Modules
-    * (Logische) **groepering** van **functies**, klassen en variabelen
+    * (Logische) **groepering** van **functies**
     * Bijvoorbeeld math, serial, random, ...
-    * Gebruik voor dit deel van cursus
-    * Ontwikkeling voor volgend deel
+    * Deze moet je importeren door bovenaan in je programma **import** <modulenaam> op te nemen
 * Objecten en klassen
-    * Groepering van **variabelen** en **functies**
-    * Verschillende **instanties** mogelijk
-    * Voor **2de deel van cursus**
+    * Komen later aan bod onder het luik objectgeoriënteerd programmeren
 
 ### Functies en hergebruik
 
 Het **sleutelwoord** bij **functies** is dus **hergebruik**
-We hebben we al **eerder** **hergebruik** gezien ... namelijk met **variabelen**:
-
-* voorzien **hergebruik** van **data/geheugen**
-* **tussen** verschillende **statements**
-* en je kan via de naam deze variabelen gebruiken
-
-Nu bekijken we **ander soort hergebruik**, namelijk **hergebruik van statements** of functionaliteit.
-
 
 ### Ingebouwde functies
 
