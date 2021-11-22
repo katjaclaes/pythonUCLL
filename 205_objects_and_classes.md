@@ -1,4 +1,4 @@
-## Objecten en klasen
+## Objecten en klassen
 
 Tot nog toe hebben we - lijsten buiten beschouwing gelaten -  enkel gewerkt met data-types die één enkele waarde kunnen bevatten zoals int, float, boolean, ...
 
