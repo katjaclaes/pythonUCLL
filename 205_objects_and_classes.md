@@ -1,6 +1,6 @@
 ## Objecten en klasen
 
-Tot nog toe hebben we - lijsten buiten beschouwing genomen -  enkel gewerkt met data-types die één enkele waarde kunnen bevatten zoals oa int, float, boolean, ...
+Tot nog toe hebben we - lijsten buiten beschouwing gelaten -  enkel gewerkt met data-types die één enkele waarde kunnen bevatten zoals int, float, boolean, ...
 
 > Nota: String was een uitzondering bij deze gezien die eigenlijk een lijst is van karakters....
 
@@ -8,26 +8,26 @@ In dit deel bekijken we klassen in python, die het ons toelaten data te structur
 
 ### Voorbeeld: studenten-applicatie
 
-Stel, je wil een een applicatie bouwen die de punten voor een vak wil bijhouden, zoals in de onderstaande tabel-voorstelling.
+Stel, je wil een applicatie bouwen die de punten voor een vak wil bijhouden, zoals in de onderstaande tabel.
 
 ~~~
     +---------+------------+--------+-----------+
     | Naam    |  Voornaam  |  Labo  |  Theorie  |
 +---+---------+------------+--------+-----------+
-| 1 | Jan     |  Janssens  |  15    |   16      |
+| 1 | Jan     |  Janssens  |  15    |   17      |
 +---+---------+------------+--------+-----------+
-| 2 | Piet    |  Pieters   |  15    |   16      |
+| 2 | Piet    |  Pieters   |  15    |   17      |
 +---+---------+------------+--------+-----------+
-| 3 | Joris   |  Jorissen  |  15    |   16      |
+| 3 | Joris   |  Jorissen  |  15    |   17      |
 +---+---------+------------+--------+-----------+
-| 3 | Korneel |  Korneels  |  15    |   16      |
+| 3 | Korneel |  Korneels  |  15    |   17      |
 +---+---------+------------+--------+-----------+
 ~~~
 
 
-### Verschillende studenten => Lijst
+### Verschillende studenten
 
-We weten ondertussen hoe we meerdere elementen van hetzelfde type moeten bijhouden in een Python-programma, namelijk aan de hand van een lijst.
+We weten ondertussen hoe we meerdere elementen van **hetzelfde type** moeten bijhouden in een Python-programma, namelijk aan de hand van een **lijst**.
 
 Zo zou je elke student als een apart element in de lijst kunnen bijhouden zoals in onderstaand voorbeeld...  
 
@@ -47,7 +47,7 @@ Een klasse is een **gestructureerd data-type** dat je toelaat verschillende waar
 
 ### Klasse student
 
-Laten we direct van wel steken met ons voorgaande voorbeeld uit te breiden.  
+Laten we direct van wal steken met ons voorgaande voorbeeld uit te breiden.  
 Toegepast op een student ziet zo'n data-type er als volgt uit, je start telkens met:
 
 * Het keyword **class**
@@ -62,19 +62,18 @@ class Student:
     theory_points = 0
 ~~~
 
-Daarna kan je dit laten volgen door 1 of meerdere **attributen**  in dit geval is dit:
+Daarna kan je dit laten volgen door 1 of meerdere **attributen** in dit geval is dit:
 
 * name
 * lab_points
 * theory_points
 
-Deze attributen zijn **sub-variabelen** die **verbonden** zijn aan een instantie van een **class**.
-
-> Nota: later gaan we zien dat we - naast attributen - ook functies kunnen aanhechten aan een class-type
+Deze attributen zijn **sub-variabelen** die **verbonden** zijn aan een **class**.
 
 ### Aanmaken van een object
 
 Als je een variabele aanmaakt van zo'n type noemen we dit een **object**.  
+
 Onderstaande code:
 
 * Definieert zo'n type
@@ -97,11 +96,8 @@ Deze **constructor**:
 
 * is een **functie**
 * die **automatisch** wordt **aangemaakt**  
-  (als je deze zelf niet maakt, zien direct)
-* met **dezelfde naam** heeft als de **klasse**
-* die je **aanroept** om een **object** (of instantie) van de klasse aan te maken
-
-Zo direct gaan we ook zien dat deze constructor kunnen aanpassen, maar laten we eerst iets doen met het object.
+* met **dezelfde naam** als de **klasse**
+* die je **aanroept** om een **object** van de klasse aan te maken
 
 ### Werken met attributen
 
@@ -119,12 +115,12 @@ jan.name = "Jan Janssens"
 jan.lab_points = 15
 jan.theory_points = 17
 
-print(jan.lab_points)     # prints Jan Janssens
+print(jan.name)           # prints Jan Janssens
 print(jan.lab_points)     # prints 15
 print(jan.theory_points)  # prints 17
 ~~~
 
-Je kan dez variabelen via de dot-notatie - object-naam gevolgd door punt gevolgd door naam -  uitlezen en bewerken, net zoals je dit zou doen bij een gewone variabelen.
+Je kan deze variabelen via de dot-notatie - object-naam gevolgd door punt gevolgd door naam -  uitlezen en bewerken, net zoals je dit zou doen bij een gewone variabele.
 
 ### Meerdere objecten
 
@@ -141,7 +137,7 @@ jan.name = "Jan Janssens"
 jan.lab_points = 15
 jan.theory_points = 17
 
-print(jan.lab_points)
+print(jan.name)
 print(jan.lab_points)
 print(jan.theory_points)
 
@@ -150,13 +146,13 @@ piet.name = "Piet Pieters"
 piet.lab_points = 15
 piet.theory_points = 17
 
-print(piet.lab_points)
+print(piet.name)
 print(piet.lab_points)
 print(piet.theory_points)
 ~~~
 
 In dit voorbeeld kan je duidelijk zien dat de attributen verbonden zijn aan het object.  
-jan.lab_points is niet het zelfde piet.lab_points
+jan.lab_points is niet hetzelfde als piet.lab_points
 
 ### Meerdere objecten in een lijst
 
@@ -188,10 +184,11 @@ for student in students:
     print(student.lab_points)
     print(student.theory_points) 
 ~~~
+
 ### Constructor met argumenten
 
 De constructor-functie kan je uitbreiden met argumenten.  
-Deze argumenten kan je gebruiken om de attributen te initialiseren
+Deze argumenten kan je gebruiken om de attributen te initialiseren. Hiervoor maak je gebruik van de initialisatie methode __init__.
 
 ~~~python
 class Student:
@@ -213,9 +210,8 @@ for student in students:
     print(student.theory_points) 
 ~~~
 
-Let ook dat niet meer nodig is de attributen te definieren, het is voldoende deze te koppelen aan self.  
+Let ook op het feit dat het niet meer nodig is de attributen te definieren, het is voldoende deze te koppelen aan self.  
 **self** is een alias/verwijzing naar de huidige instantie van deze class (Student) en is altijd verplicht als het 1ste argument bij eender welke **object-methode**.
-### Constructor (2)
 
 Gezien je een lijst bijhoudt is het niet meer nodig aparte variabelen bij te houden.  
 Je kan via de constructor direct de student-objecten/instanties toevoegen aan de lijst.
@@ -238,8 +234,6 @@ for student in students:
     print(student.theory_points) 
 ~~~
 
-### Constructor (3)
-
 We kunnen hier ook nog default-argumenten aan toekennen...
 
 ~~~python
@@ -253,7 +247,7 @@ students = []
 
 students.append(Student("Jan Janssens",15,17))
 students.append(Student("Piet Pieters",15,17))
-students.append(Student("Student zonder theori",15))
+students.append(Student("Student zonder theorie",15))
 
 for student in students:
     print(student.name + ":")
@@ -292,8 +286,8 @@ for student in students:
 
 ### __str__
 
-Een andere speciale methode (eerder hadden we al reeds de constructor gezien) is de string-methode.  
-Als je de methode __str__ toevoegt zal deze automatisch worden aangeroepen als je een naar een string wil converteren:
+Een andere speciale methode (eerder hadden we al de constructor gezien) is de string-methode.  
+Als je de methode __str__ toevoegt zal deze automatisch worden aangeroepen als je naar een string wil converteren:
 
 * Door de str()-operator te gebruiken
 * Door het object mee te geven aan de print-functie (die op zijn beurt str() aanroept)
@@ -322,7 +316,6 @@ students.append(Student("Piet Pieters",15,17))
 
 for student in students:
     print(student)
-    # of alternatief print(str(student))
 ~~~
 
 Geeft volgend resultaat:
