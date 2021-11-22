@@ -1,6 +1,5 @@
 ## GUI's met TkInter
 
-We zijn van start gegaan met het schrijven van console-applicaties.  
 Met hulp van de input() en print()-functies waren we in staat van de applicaties wat **interactief** te maken
 
 Met behulp van TkInter gaan we grafische applicaties of GUI's maken (GUI = **G**raphical **U**ser **I**nterface)
@@ -15,7 +14,7 @@ window = Tk()
 window.mainloop()
 ~~~
 
-Je dient hiervoor de module tkinter te importeren, vervolgs maak je tkinter-object (dat het scherm/window voorstelt).
+Je dient hiervoor de module tkinter te importeren, vervolgens maak je tkinter-object (dat het scherm/window voorstelt).
 
 Als laatste lijn van deze code roep je de mainloop()-functie aan.  
 Deze zal de GUI starten en in de background een oneindige loop draaien, die er voor zorgt dat dit scherm-programma actief blijft.
@@ -26,11 +25,11 @@ Als resultaat krijg je dan een lege applicatie.
 
 Deze kan je minimaliseren, maximaliseren en sluiten (via het kruisje) zoals een standaard GUI-applicatie.
 
-> Let wel, het uizicht van scherm kan licht varieren afhankelijk van het operating-system.
+> Let wel, het uitzicht van het scherm kan licht variëren afhankelijk van het besturingssysteem.
 
 ### Leeg scherm met titel
 
-Om een titel toe voegen...
+Om een titel toe te voegen...
 
 ~~~python
 from tkinter import *
@@ -113,7 +112,7 @@ mainloop()
 
 ![](../../pictures/tkinter_sized.png)
 
-### Een actie koppelen aan aan een button (1)
+### Een actie koppelen aan een button (1)
 
 ~~~python
 from tkinter import *
@@ -139,7 +138,7 @@ mainloop()
 ![](../../pictures/tkinter_button2_after.png)
 
 
-### Een actie koppelen aan aan een button (2)
+### Een actie koppelen aan een button (2)
 
 ~~~python
 from tkinter import *
