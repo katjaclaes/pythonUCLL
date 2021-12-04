@@ -4,8 +4,18 @@ Dit hoofdstukje bouwt rond een herhalings-oefening maken rond het werken met **k
 
 Naast het herhalen van het OO-principe willen we hier ook aantonen dat eender welk wat grotere applicatie **step-by-step** moet worden opgebouwd.  
 
-De oefening gaat er van uit dat je reeds Git hebt geïnstalleerd.  
-Indien dit nog niet het geval is, zie https://git-scm.com/ voor installatie-instructies.
+Installeer python 3 via https://www.python.org/downloads/
+
+Installeer volgende IDE https://thonny.org, we maken geen gebruik meer van repl.it om python files te maken maar stappen over naar de IDE Thonny.
+
+Installeer vervolgens Git. Downloaden doe je hier: https://git-scm.com/downloads. Laat de standaardopties staan.
+
+Maak gebruik van de git bash om git te configureren. Open git bash en geef volgende commando's in:
+
+~~
+$ git config --global user.name "Jouw naam"
+$ git config --global user.email "Jouw mailadres"
+
 
 ### Step-by-step coderen (zeer belangrijk!!!)
 
@@ -14,11 +24,11 @@ Dit doe je door de volgende stappen constant te herhalen:
 * **Coderen:** Een heel **kleine subset** van de **applicatie** opbouwen/toevoegen
 * **Testen:**
     * Werkt je nieuwe functionaliteit?  
-      Testen van je functie/code die je hebt gebouwd, ook soms **unit-testing**
-    * Werkt de functionaliteit die je hebt toe nog altijd even goed?  
+      Testen van je functie/code die je hebt gebouwd, ook soms **unit-testing** genoemd
+    * Werkt de functionaliteit die je hebt toegevoegd?  
       Dit noemen ze ook **testen op regressie**
 * **Revisioneren**
-    * Een maal getest slagen we onze wijziging (step) op
+    * Eenmaal getest slaan we onze wijziging (step) op
     * We voegen een duidelijke commentaar toe
 * ...en we starten opnieuw...
 
@@ -30,7 +40,7 @@ Het komt er op neer van (met behulp van een tool) de evolutie en verschillende v
 * Code delen tussen verschillende personen (en zelfs organisaties)
 * ...
 
-De tool die we hiervoor gebruiken is **Git**, en quasi standaard op gebied van code-beheer
+De tool die we hiervoor gebruiken is **Git**, een quasi standaard op gebied van code-beheer
 
 ### Git: Aanmaken van een project
 
@@ -39,14 +49,17 @@ In dit voorbeeld gaan we Git gebruiken om de wijzigingen van onze applicatie bij
 We starten met:
 
 * We **maken** een **folder** aan (we noemen deze **basket**)
+~~
+> mkdir basket
+
 * **Navigeren** (in de command-line-prompt) naar deze folder
-* We voeren in het commando **"git init"** uit binnen deze folder
+~~
+> cd basket
+
+* We voeren het commando **"git init"** uit binnen deze folder
 
 ~~~
-$ mkdir basket
-$ cd basket
-$ git init
-Initialized empty Git repository in /home/bart/school_test/basket/.git/
+Initialized empty Git repository in /Users/katja/basket/.git/
 ~~~
 
 Deze actie maakt - in deze folder basket - een lokale **git-repository**.  
@@ -58,23 +71,15 @@ Zo'n git-repository is
 
 De files die deze database omvatten bevinden zich in een verborgen folder **.git** .
 
-~~~
-$ ls -a
-.  ..  .git
-$ ls -a .git/
-.  ..  branches  config  description  HEAD  hooks  info  objects  refs
-~~~
-
-Met het commando **"git status"** kan je dan vervolgens controleren wat de status is.
+Met het commando **"git status"** kan je controleren wat de status is.
 
 ~~~
 $ git status
 On branch master
 
-Initial commit
+No commits yet
 
 nothing to commit (create/copy files and use "git add" to track)
-$ 
 ~~~
 
 De output van dit commit **suggereert** het gebruik van **git add** te gebruiken, we komen hier zo dadelijk nog op terug.
@@ -87,23 +92,25 @@ Bedoeling is dat we een **applicatie** gaan maken die een **winkelmandje** (of *
 Zo'n winkelmandje bestaat uit verschillende **items** die je in dat **mandje** mag droppen.  
 Laten we starten met er van uit te gaan dat zo'n **item** een **beschrijving** en een **prijs** bevat...
 
-We hebben in het studenten-voorbeeld gezien hoe je zulke gestructureerde data kan **bijhouden/groeperen** in een **klasse**.
+We hebben in het studentenvoorbeeld gezien hoe je zulke gestructureerde data kan **bijhouden/groeperen** in een **klasse**.
 
-We starten met een file **basket.py** aan te maken en voorzien daarin een klasse **BasketItem** voorzien:
+We starten met een nieuwe file aan te maken in Thonny en voorzien daarin een klasse **BasketItem**:
 
 ~~~python
 class BasketItem:
-    description = ""
-    itemPrice = 0
+    def __init__(self, description, price):
+        self.description = description
+	self.itemPrice = price
 ~~~
 
-Deze klasse bevat **2 attributen**, een beschrijving en een prijs van het item.
+Deze klasse bevat **3 attributen**, een verwijzing naar zichzelf, een beschrijving en een prijs van het item. Bewaar dit bestand als **basket.py** in **dezelfde
+directory** als die je aangemaakt hebt bij het maken van je repository in Git.
 
-Om zeker te zijn van correctheid voeren we onze applicatie uit om zeker te zijn dat deze geen code-fouten bevat.
+Om zeker te zijn van correctheid voeren we onze applicatie uit binnen thonny. Maak hiervoor gebruik van het groene "run" pijltje. Je kan het ook uitvoeren door 
+volgend commando te gebruiken in de opdrachtprompt.
 
 ~~~
-$ python basket.py 
-$
+> python basket.py 
 ~~~
 
 Vanzelfsprekend doet deze nog **niet** erg **veel**, daar komen we zo dadelijk **op** **terug**.  
@@ -111,7 +118,7 @@ Eerst gaan we echter onze eerste **code-wijzigen registereren/revisioneren**
 
 ### Git: Je 1ste commit met git...
 
-We hebben ons **eerste stuk code** geschreven, als we via het git-commando **"git status"** de status opvragen...
+We hebben ons **eerste stukje code** geschreven, als we via het git-commando **"git status"** de status opvragen...
 
 ~~~
 $ git status
@@ -128,7 +135,7 @@ nothing added to commit but untracked files present (use "git add" to track)
 ~~~
 
 ...zien we dat git gezien heeft dat de file is gewijzigd en dat deze niet wordt getraceerd (tracked)   
-We gebruiken het command **"git add <file>"** om deze toe te voegen aan de git-repo
+We gebruiken het command **"git add <file>"** om deze toe te voegen aan de git-repository
 
 ~~~
 $ git add basket.py 
@@ -146,7 +153,7 @@ Changes to be committed:
 Er staat **"Changes to be committed"**, dit betekent dat je nu aan de **git-repo** hebt meegedeeld dat er een **wijziging** is.  
 De wijziging is echter **nog niet** in de git-repo **opgeslagen**, om dit te volbrengen moeten we een **commit** uitvoeren.
 
-Dit kan je met het commando **"git commit"**.  
+Dit kan je met het commando **"git commit -m"**.  
 Zo'n **commit** moet altijd vergezeld gaan van een boodschap, in dit geval "Creating class BasketItem.py".  
 
 > Belangijk:  
@@ -156,7 +163,7 @@ Zo'n **commit** moet altijd vergezeld gaan van een boodschap, in dit geval "Crea
 ~~~
 $ git commit -m "Creating class BasketItem.py"
 [master (root-commit) 6e8de93] Creating class BasketItem.py
- 1 file changed, 3 insertions(+)
+ 1 file changed, 4 insertions(+)
  create mode 100644 basket.py
 $ git status
 On branch master
@@ -170,7 +177,7 @@ Met het commando **"git log"** kan je dan zien dat je wijziging is geregistreerd
 ~~~
 $ git log
 commit 6e8de9336064b7c7b7ff1c5e3ebff40a068efb7b
-Author: Bart Voet <bart_voet@telenet.be>
+Author: jouw gegevens
 Date:   Sun Jan 10 19:43:15 2021 +0100
 
     Creating class BasketItem.py
@@ -179,31 +186,9 @@ $
 
 Op de eerste lijn van deze output zie je lange string van **hexadecimale tekens** (6e8de9336064b7c7b7ff1c5e3ebff40a068efb7b), dit is wat we noemen de **commit-id**, een unieke **identifier** voor je code-wijzigingen
 
-Deze kan je dan gebruiken om achteraf je code wijzigingen te bekijken via het commando **"git show"**  
-Type git show gevolgd door de commit-id (normaal gezien is het voldoende om de 1ste 5 karakters te typen)
-
 > **Belangrijk:**  
 > Zo'n commit is het centrale begrip in git, het is een soort van snapshot van je code op een bepaald tijdstip
 
-~~~
-git show 6e8de9
-commit 6e8de9336064b7c7b7ff1c5e3ebff40a068efb7b
-Author: Bart Voet <bart_voet@telenet.be>
-Date:   Sun Jan 10 19:43:15 2021 +0100
-
-    Creating class BasketItem.py
-
-diff --git a/basket.py b/basket.py
-new file mode 100644
-index 0000000..6e6b720
---- /dev/null
-+++ b/basket.py
-@@ -0,0 +1,3 @@
-+class BasketItem:
-+    description = ""
-+    itemPrice = 0
-\ No newline at end of file
-~~~
 
 ### Code schrijven: event-loop
 
@@ -214,13 +199,14 @@ We hebben nu echter **nog geen applicatie** daarvoor zijn er nog **2** belangrij
 
 #### Lijst van BasketItem-objecten
 
-De **eerste stap** is een **lijst** aan te maken als globale variable waarin we BasketItems kunnen toevoegen en bewerken.
+De **eerste stap** is een **lijst** aanmaken als globale variabele waarin we BasketItems kunnen toevoegen en bewerken.
 
 ~~~python
 class BasketItem:
-    description = ""
-    itemPrice = 0
-
+    def __init__(self, description, price):
+        self.description = description
+        self.itemPrice = price
+        
 items = []
 ~~~
 
@@ -241,18 +227,19 @@ Een eerste versie van de loop...
 
 ~~~python
 class BasketItem:
-    description = ""
-    itemPrice = 0
-
+    def __init__(self, description, price):
+        self.description = description
+        self.itemPrice = price
+        
 items = []
 
-while(True):
+while True:
 	pass
 ~~~
 
 Hier ontbreekt nog een stuk om van een event-loop te spreken...
 
-> Het pass-statement wordt hier enkel tijdelijk gebruikt gezien we hier nog geen invulling hebben gegeven aan onze loop=;
+> Het pass-statement wordt hier enkel tijdelijk gebruikt gezien we hier nog geen invulling hebben gegeven aan onze loop
 
 #### Event-loop (menu)
 
@@ -261,9 +248,10 @@ We printen hier het menu telkens af en vangen gebruikers-input op via de functie
 
 ~~~python
 class BasketItem:
-    description = ""
-    itemPrice = 0
-
+    def __init__(self, description, price):
+        self.description = description
+        self.itemPrice = price
+        
 items = []
 
 menu = """
@@ -272,7 +260,7 @@ menu = """
 3> Sluit af
 """
 
-while(True):
+while True:
 	menu_input = input(menu)
 ~~~
 
@@ -285,16 +273,17 @@ Hiervoor plaatsen we een **if/elif-clausule** voor elke **menu-optie**.
 
 ~~~python
 class BasketItem:
-    description = ""
-    itemPrice = 0
-
+    def __init__(self, description, price):
+        self.description = description
+        self.itemPrice = price
+	
+items = []
+	
 menu = """
 1> Voeg item toe
 2> Print items af
 3> Sluit af
 """
-
-items = []
 
 while True:
     menu_input = input(menu)
@@ -334,13 +323,9 @@ Foutieve keuze
 ...en zien dat de boodschappen worden afgeprint overeenkomstig de keuzes.  
 Het **basis-skelet** van onze **event-loop** lijkt **ok** te zijn.  
 
-> **Belangrijk:**  
-> Voer deze code uit met **Python 3**, met Python 2 zal deze code niet correct runnen.  
-> Later in de cursus komen we nog terug op deze verschillen.
-
 ### Git: Een 2de commit...
 
-Een nieuwe fase van onze ontwikkeling is **ontwikkeld** en **getest**, we gaan nu deze **code-wijziging** toevoegen aan onze **git-repo**.
+Een nieuwe fase van onze applicatie is **ontwikkeld** en **getest**, we gaan nu deze **code-wijziging** toevoegen aan onze **git-repo**.
 
 Als we de status opvragen geeft git aan dat er een nieuwe wijziging is.  
 
@@ -357,7 +342,7 @@ no changes added to commit (use "git add" and/or "git commit -a")
 ~~~
 
 Wij hebben deze **wijziging** echter **nog niet klaargezet** voor de commit.  
-Hier voor gebruiken we opnieuw het commando **"git add"**
+Hiervoor gebruiken we opnieuw het commando **"git add"**
 
 ~~~
 $ git add basket.py
@@ -383,21 +368,18 @@ Merk op dat onze **git-historiek** nu ook **2** commits bevat
 ~~~
 $ git log
 commit ecc9bc7dea83661149a7c5bd9942f1b36c8d6e54
-Author: Bart Voet <bart_voet@telenet.be>
+Author: jouw gegevens
 Date:   Sun Jan 10 21:20:20 2021 +0100
 
     Setup of basic event-loop and -menu
 
 commit 6e8de9336064b7c7b7ff1c5e3ebff40a068efb7b
-Author: Bart Voet <bart_voet@telenet.be>
+Author: jouw gegevens
 Date:   Sun Jan 10 19:43:15 2021 +0100
 
     Creating class BasketItem.py
 ~~~
 
-> **Opdracht voor de student:**  
-> Probeer nu even de **wijzigingen** te **bestuderen** van elke commit via git show <commit-id>  
-> Normaal gezien is het voldoende van enkel de eerste 4/5 letter van je commit-id te typen.
 
 ### Code schrijven: programma/event-loop beëindigen
 
