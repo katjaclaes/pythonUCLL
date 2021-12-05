@@ -386,20 +386,21 @@ Date:   Sun Jan 10 19:43:15 2021 +0100
 Tot nog toe moesten we ons eerste programma afsluiten met **ctrl+c**  
 Het eerste event dat we al kunnen afwerken is **"3> Sluit af"** opdat we het programma op een elegante manier kunnen afwerken.
 
-Hiervoor gebruiken we de **python-functie exit()** die er zal voor zorgen dat het programma wordt afgesloten.
+Hiervoor gebruiken we de python-functie **exit()** die er zal voor zorgen dat het programma wordt afgesloten.
 
 ~~~python
 class BasketItem:
-    description = ""
-    itemPrice = 0
+    def __init__(self, description, price):
+        self.description = description
+        self.itemPrice = price
+        
+items = []
 
 menu = """
 1> Voeg item toe
 2> Print items af
 3> Sluit af
 """
-
-items = []
 
 while True:
     menu_input = input(menu)
@@ -416,7 +417,7 @@ while True:
 
 ### git: diff en nog commit's
 
-We gaan deze wijziging/progress ook **bewaren** in de git-repo.  
+We gaan deze wijziging ook **bewaren** in de git-repo.  
 Alvorens dit te doen, gebruiken we het **"git diff"**-commando om te inspecteren wat we hebben gewijzigd tov de vorige commit.
 
 ~~~
@@ -437,7 +438,6 @@ index fa85624..c923bc3 100644
 \ No newline at end of file
 ~~~
 
-Dit geeft een vergelijkbaar rapport zoals we dit eerder hebben gezien voor **"git show"**.  
 Het toont ons dat tov de vorige commit:
 
 * **1 lijn** is **verwijderd** (aangeduid met **-**)
@@ -470,68 +470,37 @@ $ git add basket.py
 $ git commit -m "Implementing exit-event"
 [master a29a73a] Implementing exit-event
  1 file changed, 2 insertions(+), 1 deletion(-)
-$ git log
-commit a29a73a734df309ea2a221c778729c74d99d63a5
-Author: Bart Voet <bart_voet@telenet.be>
-Date:   Sun Jan 10 22:09:05 2021 +0100
-
-    Implementing exit-event
-:...skipping...
-commit a29a73a734df309ea2a221c778729c74d99d63a5
-Author: Bart Voet <bart_voet@telenet.be>
-Date:   Sun Jan 10 22:09:05 2021 +0100
-
-    Implementing exit-event
-
-commit ecc9bc7dea83661149a7c5bd9942f1b36c8d6e54
-Author: Bart Voet <bart_voet@telenet.be>
-Date:   Sun Jan 10 21:20:20 2021 +0100
-
-    Setup of basic event-loop and -menu
-
-commit 6e8de9336064b7c7b7ff1c5e3ebff40a068efb7b
-Author: Bart Voet <bart_voet@telenet.be>
-Date:   Sun Jan 10 19:43:15 2021 +0100
-
-    Creating class BasketItem.py
 ~~~
 
-...en we zien dat de **git-historiek** zich langzaam maar zeker begint **op te bouwen**
+Wanneer je een **git log** opvraagt zie je dat de **git-historiek** zich langzaam maar zeker begint **op te bouwen**
 
 ### Code schrijven: Afdrukken van items
 
 We hebben bij een vorige commit een **lijst** gemaakt die wordt gebruikt om de **items** bij te houden.  
 
-In **deze wijziging/commit** gaan we deze **lijst afdrukken**, gezien we echter de invulling nog niet hebben we uitgewerkt maken we voorlopig een fake/hardcoded lijst aan:
+In **deze wijziging/commit** gaan we deze **lijst afdrukken**, gezien we echter de invulling nog niet hebben uitgewerkt maken we voorlopig een fake/hardcoded lijst aan:
 
 > **Belangrijk:**  
 > Het gebruik van deze fake data dient achteraf verwijderd te worden 
 > maar het laat ons toe onze code-wijziging te testen.
-> In een volgende les gaan we meer geavanceerde technieken zien om onze code te testen
-> (en deze testen zelf te automatiseren)
 
 ~~~python
 class BasketItem:
-    description = ""
-    itemPrice = 0
+    def __init__(self, description, price):
+        self.description = description
+        self.itemPrice = price
+        
+items = []
 
 menu = """
 1> Voeg item toe
 2> Print items af
 3> Sluit af
 """
-
-items = []
+	
 # Temporary list/will be removed later on
-an_item = BasketItem()
-an_item.description = "Laptop"
-an_item.itemPrice = 1000
-items.append(an_item)
-
-an_item = BasketItem()
-an_item.description = "USB-stick"
-an_item.itemPrice = 10
-items.append(an_item)
+items.append(BasketItem("Laptop", 1000))
+items.append(BasketItem("USB-stick", 10))
 
 while True:
     menu_input = input(menu)
@@ -547,7 +516,7 @@ while True:
         print("Foutieve keuze")
 ~~~
 
-Onder **optie 2** voegen we vervolgens een **loop** toe die deze **items afdrukt**.  
+Onder **optie 2** hebben we  een **loop** toegevoegd die deze **items afdrukt**.  
 
 ~~~
 $ python basket.py 
@@ -583,8 +552,8 @@ $ git commit -m "Printing the available items"
 
 ### Code schrijven: items toevoegen
 
-Om er een **interactieve applicatie** van te maken moeten we **user-input** gebruiken om de het **winkelmandje** aan te vullen.  
-We doen dit door **event 1** te **implementeren** door de 3 volgende taken te implementeren:
+Om er een **interactieve applicatie** van te maken moeten we **user-input** gebruiken om het **winkelmandje** aan te vullen.  
+We doen dit door **event 1** te **implementeren** door de 3 volgende taken toe te voegen:
 
 * Vraag **user-input** op (beschrijving en prijs)
 * **Maak BasketItem-object** aan met input
@@ -594,8 +563,11 @@ We doen dit door **event 1** te **implementeren** door de 3 volgende taken te im
 
 ~~~python
 class BasketItem:
-    description = ""
-    itemPrice = 0
+    def __init__(self, description, price):
+        self.description = description
+        self.itemPrice = price
+        
+items = []
 
 menu = """
 1> Voeg item toe
@@ -603,20 +575,14 @@ menu = """
 3> Sluit af
 """
 
-items = []
-
 while True:
     menu_input = input(menu)
     if menu_input == "1":
         # Request input from user
         description = input("Geef beschrijving: ")
         price = int(input("Geef prijs: "))
-        # Create item
-        item = BasketItem()
-        item.description = description
-        item.itemPrice = price
-        # Append new item
-        items.append(item)
+        # Create and append new item
+        items.append(BasketItem(description, price))
     elif menu_input == "2":
         for item in items:
             print(item.description, "voor prijs", item.itemPrice)
@@ -674,61 +640,6 @@ $ git commit -m "Adding items to the basket"
  1 file changed, 9 insertions(+), 11 deletions(-)
 ~~~ 
 
-### Code schrijven: constructor toevoegen
-
-We voegen een **refactoring/code-optimalisatie** toe, we maken een **constructor**.  
-Zoals we eerder hebben gezien kunnen we deze **constructor** gebruiken om deze attributen **in 1 maal** volledig te initialiseren.
-
-> Dit verkort het aantal lijnen in optie 1 gevoelig
-
-~~~python
-class BasketItem:
-    def __init__(self, description, itemPrice):
-        self.description = description
-        self.itemPrice = itemPrice
-
-menu = """
-1> Voeg item toe
-2> Print items af
-3> Sluit af
-"""
-
-items = []
-
-while True:
-    menu_input = input(menu)
-    if menu_input == "1":
-        # Request input from user
-        description = input("Geef beschrijving: ")
-        price = int(input("Geef prijs: "))
-        # Append new item
-        items.append(BasketItem(description, price))
-    elif menu_input == "2":
-        for item in items:
-            print(item.description, "voor prijs", item.itemPrice)
-    elif menu_input == "3":
-        print("Programma wordt beeindigd")
-        exit()
-    else:
-        print("Foutieve keuze")
-~~~
-
-> De code wordt hierdoor gecondenseerd zonder aan leesbaarheid in te winnen.  
-
-We voeren opnieuw dezelfde test uit die we bij de vorige commit hadden uitgevoerd en zien dat onze code nog altijd naar behoren werkt (geen regressie).
-
-
-### git: ...volgende commit
-
-We kunnen dus opnieuw een  commit toevoegen hiervoor met een korte duidelijke boodschap:
-
-~~~
-$ git add basket.py
-$ git commit -m "Provide constructor for BasketItem"
-[master 5d7122b] Provide constructor for BasketItem
- 1 file changed, 4 insertions(+), 8 deletions(-)
-~~~
-
 ### Code schrijven: Voeg een attribuut quantity toe
 
 In een winkelmandje dien je soms **meerdere items** van **hetzelfde product** bij te houden.  
@@ -759,13 +670,16 @@ Binnen de event-loop passen we dan de print aan zodat die niet de prijs van 1 it
 
 ~~~python
 class BasketItem:
-    def __init__(self, description, itemPrice, quantity = 1):
+    def __init__(self, description, price, quantity = 1):
         self.description = description
-        self.itemPrice = itemPrice
+        self.itemPrice = price
         self.quantity = quantity
     
     def totalPrice(self):
         return self.itemPrice * self.quantity
+    
+    
+items = []
 
 menu = """
 1> Voeg item toe
@@ -773,7 +687,6 @@ menu = """
 3> Sluit af
 """
 
-items = []
 
 while True:
     menu_input = input(menu)
@@ -782,7 +695,7 @@ while True:
         description = input("Geef beschrijving: ")
         price = int(input("Geef prijs: "))
         quantity = int(input("Geef hoeveelheid: "))
-        # Append new item
+        # Create and append new item
         items.append(BasketItem(description, price, quantity))
     elif menu_input == "2":
         for item in items:
@@ -830,7 +743,7 @@ $ git commit -m "Adding a quantity to BasketItem"
 
 ### Totaal van de items
 
-Interessant om te weten als gebruiker is de **totaal waarde** van deze items.  
+Interessant om te weten als gebruiker is de **totaalwaarde** van deze items.  
 Hiervoor voegen we een loop toe binnen **event 2**
 
 ~~~python
@@ -919,10 +832,10 @@ $ git commit -m "Adding total-value"
 
 ### Basket-klasse
 
-Een kleine **optimalisatie** is het isoleren van het beheer van verschillende items in een binnen een aparte klasse.  We noemen deze klasse **Basket**
+Een kleine **optimalisatie** is het isoleren van het beheer van verschillende items in een aparte klasse.  We noemen deze klasse **Basket**
 
 Dit laat ons toe van de logica rond het beheer van items te isoleren op 1 plek (namelijk in de klasse Basket)
-Dit zou ook interessant zijn voor de toekomst als we binnen een applicatie meerdere winkelmandjes will bijhouden (bijvoorbeeld voor verschillende gebruikers).
+Dit zou ook interessant zijn voor de toekomst als we binnen een applicatie meerdere winkelmandjes willen bijhouden (bijvoorbeeld voor verschillende gebruikers).
 
 Deze klasse bevat:
 
@@ -1005,233 +918,20 @@ git commit -m "Adding Basket-class to manage group of items"
  1 file changed, 20 insertions(+), 7 deletions(-)
 ~~~
 
-### Error-handling: Vermijden van negatieve ingaves
+### Zelf toe te voegen: Error-handling: Vermijden van negatieve ingaves en opvangen van niet int-getallen
 
 Tot nog toe hebben we geen controles uitgevoerd op negatieve waardes.  
 We passen de volgende regels toe:
 
 * Enkel een hoeveelheid toelaten > 0
 * Enkel een prijs toelaten >= 0
-
-We gaan deze controles toevoegen in de klasse Basket.  
-
-Het idee is om vanuit de constructor een exceptie op te werpen om te vermijden dat er een item kan aangemaakt met de verkeerde data.
-
-Om deze excepties op type te kunnen opvangen maken we 2 specifieke exceptie-klasses aan
- (1tje voor elke fout).  
-Deze excepties worden dan opgevangen binnen de eventloop en een boodschap wordt afgedrukt bij fout.
-
-~~~python
-class InvalidQuantityException(Exception):
-    pass
-
-class InvalidItemPriceException(Exception):
-    pass
-
-class BasketItem:
-    def __init__(self, description, itemPrice, quantity = 1):
-        if quantity <= 0:
-            raise InvalidQuantityException()
-
-        if itemPrice < 0:
-            raise InvalidQuantityException()
-        
-        self.description = description
-        self.itemPrice = itemPrice
-        self.quantity = quantity
-    
-    def totalPrice(self):
-        return self.itemPrice * self.quantity
-
-class Basket:
-    items = []
-
-    def addItem(self, item):
-        self.items.append(item)
-
-    def getItems(self):
-        return self.items
-
-    def totalValueOfItems(self):
-        totalValue = 0
-        for item in self.items:
-            totalValue = totalValue + item.totalPrice()
-        return totalValue
-
-basket = Basket()
-
-menu = """
-1> Voeg item toe
-2> Print items af
-3> Sluit af
-"""
-
-while True:
-    menu_input = input(menu)
-    if menu_input == "1":
-        try:
-            # Request input from user
-            description = input("Geef beschrijving: ")
-            price = int(input("Geef prijs: "))
-            quantity = int(input("Geef hoeveelheid: "))
-            # Append new item
-            basket.addItem(BasketItem(description, price, quantity))
-        except InvalidQuantityException:
-            print(quantity, "is geen geldige hoeveelheid")
-        except InvalidItemPriceException:
-            print(price, "is geen geldige prijs")
-    elif menu_input == "2":
-        for item in basket.getItems():
-            print(item.quantity, "*", item.description, " = ", item.totalPrice())
-        print("Totale waarde:", basket.totalValueOfItems())
-    elif menu_input == "3":
-        print("Programma wordt beeindigd")
-        exit()
-    else:
-        print("Foutieve keuze")
-~~~
-
-~~~
-...
-1> Voeg item toe
-2> Print items af
-3> Sluit af
-1
-Geef beschrijving: Laptop 
-Geef prijs: -1000
-Geef hoeveelheid: 10 
-10 is geen geldige prijs
-
-1> Voeg item toe
-2> Print items af
-3> Sluit af
-1
-Geef beschrijving: Laptop
-Geef prijs: 1000
-Geef hoeveelheid: -10
--10 is geen geldige hoeveelheid
-...
-~~~
-
-~~~
-$ git commit -m "Exception handling, avoid negative values"
-[master 8176859] Exception handling, avoid negative values
- 1 file changed, 27 insertions(+), 6 deletions(-)
-~~~
-
-### Error-handling: Opvangen van niet int-getallen
-
+	
 Als we momenteel geen getal in voeren voor hoeveelheid of prijs zal de applicatie crashen.  
-We zullen dit opvangen door ook ValueError-exceptie op te vangen binnen de event-loop.
+We zullen dit opvangen door een ValueError-exceptie.
+Vergeet niet te committen!
 
-~~~python
-class InvalidQuantityException(Exception):
-    def QuantityException():
-        pass
 
-class InvalidItemPriceException(Exception):
-    def InvalidQuantityException():
-        pass
+	
 
-class BasketItem:
-    def __init__(self, description, itemPrice, quantity = 1):
-        if quantity <= 0:
-            raise InvalidQuantityException()
-
-        if itemPrice < 0:
-            raise InvalidQuantityException()
-        
-        self.description = description
-        self.itemPrice = itemPrice
-        self.quantity = quantity
-    
-    def totalPrice(self):
-        return self.itemPrice * self.quantity
-
-class Basket:
-    items = []
-
-    def addItem(self, item):
-        self.items.append(item)
-
-    def getItems(self):
-        return self.items
-
-    def totalValueOfItems(self):
-        totalValue = 0
-        for item in self.items:
-            totalValue = totalValue + item.totalPrice()
-        return totalValue
-
-basket = Basket()
-
-menu = """
-1> Voeg item toe
-2> Print items af
-3> Sluit af
-"""
-
-while True:
-    menu_input = input(menu)
-    if menu_input == "1":
-        try:
-            # Request input from user
-            description = input("Geef beschrijving: ")
-            price = int(input("Geef prijs: "))
-            quantity = int(input("Geef hoeveelheid: "))
-            # Append new item
-            basket.addItem(BasketItem(description, price, quantity))
-        except InvalidQuantityException:
-            print(quantity, "is geen geldige hoeveelheid")
-        except InvalidItemPriceException:
-            print(price, "is geen geldige prijs")
-        except ValueError:
-            print("Gelieve een geldige waarde ingeven")
-    elif menu_input == "2":
-        for item in basket.getItems():
-            print(item.quantity, "*", item.description, " = ", item.totalPrice())
-        print("Totale waarde:", basket.totalValueOfItems())
-    elif menu_input == "3":
-        print("Programma wordt beeindigd")
-        exit()
-    else:
-        print("Foutieve keuze")
-~~~
-
-### git: ...nog een commit...
-
-Vanzelfsprekend voeren we een nieuwe commit uit:
-
-~~~
->git commit -m "Intercepting non-numeric values for user input"
-[master 9eedf57] Intercepting non-numeric values for user input
- 1 file changed, 2 insertions(+), 2 deletions(-)
-~~~
-
-### En verder... voor de student
-
-We gaan deze oefening in latere hoofdstukken verderzetten al leidraad:
-
-* Aanmaken van modules
-* Werken met test-frameworks
-* GUI met TKInter
-* Webinteface
-* Persistentie in een database
-* ...
-
-#### Git
-
-Dit voorbeeld is als zip downloadbaar in de cursus.  
-Download deze en probeer via de commando's **"git log"** en "git show <commit-id>" dit voorbeeld te bestuderen en wat handigheid op te bouwen met Git zelf.
-
-#### Uitbreidingsoefeningen
-
-Daarnaast kunnen er nog veel verbeteringen worden toegevoegd:
-
-* Verwijderen van een item
-* Wijzigen van de hoeveelheid
-* Meerdere baskets aanmaken
-* Toevoegen van klant-data
-* ...
-
-Probeer deze stap-gewijs toe te voegen
+	
+	
