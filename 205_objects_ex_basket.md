@@ -13,8 +13,8 @@ Installeer vervolgens Git. Downloaden doe je hier: https://git-scm.com/downloads
 Maak gebruik van de git bash om git te configureren. Open git bash en geef volgende commando's in:
 
 ~~
-$ git config --global user.name "Jouw naam"
-$ git config --global user.email "Jouw mailadres"
+> git config --global user.name "Jouw naam"
+> git config --global user.email "Jouw mailadres"
 
 
 ### Step-by-step coderen (zeer belangrijk!!!)
