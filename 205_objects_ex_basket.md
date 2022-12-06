@@ -415,53 +415,9 @@ while True:
         print("Foutieve keuze")
 ~~~
 
-### git: diff en nog commit's
+### git: nog commit's
 
 We gaan deze wijziging ook **bewaren** in de git-repo.  
-Alvorens dit te doen, gebruiken we het **"git diff"**-commando om te inspecteren wat we hebben gewijzigd tov de vorige commit.
-
-~~~
-$ git diff
-diff --git a/basket.py b/basket.py
-index fa85624..c923bc3 100644
---- a/basket.py
-+++ b/basket.py
-@@ -17,6 +17,7 @@ while True:
-     elif menu_input == "2":
-         print("TODO: Print item af")
-     elif menu_input == "3":
--        print("TODO: Sluit de applicatie af")
-+        print("Programma wordt beeindigd")
-+        exit()
-     else:
-         print("Foutieve keuze")
-\ No newline at end of file
-~~~
-
-Het toont ons dat tov de vorige commit:
-
-* **1 lijn** is **verwijderd** (aangeduid met **-**)
-
-~~~
--        print("TODO: Sluit de applicatie af")
-~~~
-
-* **2 lijnen** zijn **toegevoegd** (aangeduid met **+**)
-
-~~~
-+        print("Programma wordt beeindigd")
-+        exit()
-~~~
-
-* Ook wordt er aangeduid **waar** in de code dat **deze wijzigingen** kunnen gevonden worden
-    * de file basket.py
-    * ergens vanaf op lijn 17
-
-~~~
---- a/basket.py
-+++ b/basket.py
-@@ -17,6 +17,7 @@
-~~~
 
 We **voegen** deze **commit toe**...
 
@@ -830,95 +786,8 @@ $ git commit -m "Adding total-value"
  1 file changed, 3 insertions(+)
 ~~~
 
-### Basket-klasse
 
-Een kleine **optimalisatie** is het isoleren van het beheer van verschillende items in een aparte klasse.  We noemen deze klasse **Basket**
-
-Dit laat ons toe van de logica rond het beheer van items te isoleren op 1 plek (namelijk in de klasse Basket)
-Dit zou ook interessant zijn voor de toekomst als we binnen een applicatie meerdere winkelmandjes willen bijhouden (bijvoorbeeld voor verschillende gebruikers).
-
-Deze klasse bevat:
-
-* Een **lijst** met **items**
-* Een functie om een **item toe te voegen**
-* Een functie om de **totale prijs** te berekenen
-
-~~~python
-class BasketItem:
-    def __init__(self, description, itemPrice, quantity = 1):
-        self.description = description
-        self.itemPrice = itemPrice
-        self.quantity = quantity
-    
-    def totalPrice(self):
-        return self.itemPrice * self.quantity
-
-class Basket:
-    items = []
-
-    def addItem(self, item):
-        self.items.append(item)
-
-    def getItems(self):
-        return self.items
-
-    def totalValueOfItems(self):
-        totalValue = 0
-        for item in self.items:
-            totalValue = totalValue + item.totalPrice()
-        return totalValue
-
-basket = Basket()
-
-menu = """
-1> Voeg item toe
-2> Print items af
-3> Sluit af
-"""
-
-while True:
-    menu_input = input(menu)
-    if menu_input == "1":
-        # Request input from user
-        description = input("Geef beschrijving: ")
-        price = int(input("Geef prijs: "))
-        quantity = int(input("Geef hoeveelheid: "))
-        # Append new item
-        basket.addItem(BasketItem(description, price, quantity))
-    elif menu_input == "2":
-        for item in basket.getItems():
-            print(item.quantity, "*", item.description, " = ", item.totalPrice())
-        print("Totale waarde:", basket.totalValueOfItems())
-    elif menu_input == "3":
-        print("Programma wordt beeindigd")
-        exit()
-    else:
-        print("Foutieve keuze")
-~~~
-
-We **herhalen** de **test** van het voorgaande deel en zien dat de code nog altijd werkt (geen regressie)
-
-~~~
-...
-1> Voeg item toe
-2> Print items af
-3> Sluit af
-2
-2 * Laptop  =  2000
-3 * Harde schijf = 750
-Totaal: 2750
-...
-~~~
-
-### git: committen maar...
-
-~~~
-git commit -m "Adding Basket-class to manage group of items"
-[master 943f10f] Adding Basket-class to manage group of items
- 1 file changed, 20 insertions(+), 7 deletions(-)
-~~~
-
-### Zelf toe te voegen: Error-handling: Vermijden van negatieve ingaves en opvangen van niet int-getallen
+### Eventuele extra: Error-handling: Vermijden van negatieve ingaves en opvangen van niet int-getallen
 
 Tot nog toe hebben we geen controles uitgevoerd op negatieve waardes.  
 We passen de volgende regels toe:
