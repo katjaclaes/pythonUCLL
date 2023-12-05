@@ -1,19 +1,20 @@
 ## Synthese-oefening: Winkelmandje
 
-Dit hoofdstukje bouwt rond een herhalings-oefening maken rond het werken met **klassen en objecten** gecombineerd met het gebruik van **lijsten**.
+Dit hoofdstukje bouwt rond een herhalingsoefening met **klassen en objecten** en **lijsten**.
 
 Naast het herhalen van het OO-principe willen we hier ook aantonen dat eender welk wat grotere applicatie **step-by-step** moet worden opgebouwd.  
 
 Installeer python 3 via https://www.python.org/downloads/
 
-Installeer volgende IDE https://thonny.org, we maken geen gebruik meer van repl.it om python files te maken maar stappen over naar de IDE Thonny.
+Maak gebruik van volgende IDE https://thonny.org.
 
 Installeer vervolgens Git. Downloaden doe je hier: https://git-scm.com/downloads. Laat de standaardopties staan.
 
-Maak gebruik van de git bash om git te configureren. Open git bash en geef volgende commando's in:
+Maak gebruik van de git bash om git te configureren (voor mac gebruikers -> terminal). Open git bash en geef volgende commando's in:
 
 ~~
 > git config --global user.name "Jouw naam"
+
 > git config --global user.email "Jouw mailadres"
 
 
@@ -90,7 +91,7 @@ Alvorens met git verder te gaan starten we met **code te schrijven**.
 Bedoeling is dat we een **applicatie** gaan maken die een **winkelmandje** (of **winkellijstje**) gaat beheren.
 
 Zo'n winkelmandje bestaat uit verschillende **items** die je in dat **mandje** mag droppen.  
-Laten we starten met er van uit te gaan dat zo'n **item** een **beschrijving** en een **prijs** bevat...
+Laten we starten met ervan uit te gaan dat zo'n **item** een **beschrijving** en een **prijs** bevat.
 
 We hebben in het studentenvoorbeeld gezien hoe je zulke gestructureerde data kan **bijhouden/groeperen** in een **klasse**.
 
