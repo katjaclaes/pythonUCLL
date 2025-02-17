@@ -316,39 +316,100 @@ else:
   print("The file does not exist") 
 ~~~
 
-#### Verwijderen van een directory
+#### Zoeken in de file (direct vertaald uit py4e.com)
 
-Om een directory te verwijderen dien je de rmdir()-functie te gebruiken
+Wanneer u gegevens in een bestand doorzoekt, is het een veel voorkomend patroon om een bestand door te lezen, waarbij de meeste regels worden genegeerd en alleen regels worden verwerkt die aan een bepaalde voorwaarde voldoen. We kunnen het patroon voor het lezen van een bestand combineren met tekenreeksmethoden om eenvoudige zoekmechanismen te bouwen. 
+Als we bijvoorbeeld een bestand willen lezen en alleen regels willen afdrukken die beginnen met het voorvoegsel "Van:", kunnen we de tekenreeksmethode startswith gebruiken om alleen die regels met het gewenste voorvoegsel te selecteren:
 
 ~~~python
-import os
-os.rmdir("a_folder") 
+with open('mbox-short.txt') as fhand:
+    for line in fhand:
+        if line.startswith('From:'):
+            print(line)
 ~~~
 
-Let wel, deze zal falen 
+De uitvoer ziet er geweldig uit, aangezien de enige regels die we zien de regels zijn die beginnen met "Van:", maar waarom zien we de extra lege regels? Dit komt door dat onzichtbare newline karakter. 
+Elk van de regels eindigt met een nieuwe regel, dus de print statement drukt de tekenreeks af in de variabele regel die een nieuwe regel bevat en voegt vervolgens nog een nieuwe regel toe, wat resulteert in het dubbele spatiëringseffect dat we zien. We zouden line slicing kunnen gebruiken om alles behalve het laatste teken af te drukken, maar een eenvoudigere aanpak is om de rstrip-methode te gebruiken die witruimtes van de rechterkant van een string als volgt verwijdert:
 
-* als de directory niet bestaat 
-
-~~~
-...
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-FileNotFoundError: [Errno 2] No such file or directory: 'a_folder'
->>> 
-~~~
-
-> Om dit te vermijden kan je os.path.exists() gebruiken)
-
-* Als de directory niet leeg is
-
-~~~
-...
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-OSError: [Errno 39] Directory not empty: 'a_folder'
+~~~python
+with open('mbox-short.txt') as fhand:
+    for line in fhand:
+        line = line.rstrip()
+        if line.startswith('From:'):
+            print(line)
 ~~~
 
-### Verdere info
+Naarmate uw bestandsverwerkingsprogramma's ingewikkelder worden, wilt u misschien uw zoeklussen structureren met behulp van continue. Het basisidee van de zoeklus is dat u op zoek bent naar "interessante" regels en in feite "oninteressante" regels overslaat. En als we dan een interessante lijn vinden, doen we iets met die lijn. We kunnen de lus zo structureren dat het patroon van het overslaan van oninteressante regels als volgt verloopt:
+
+~~~python
+with open('mbox-short.txt') as fhand:
+    for line in fhand:
+        line = line.rstrip()
+        #Skip de oninteressante regels
+        if not line.startswith('From:'):
+            continue
+        #Print de interessante regels
+        print(line)
+~~~
+
+De output van het programma is hetzelfde. In het Nederlands: de oninteressante regels zijn die die niet beginnen met "From:", die we overslaan door continue te gebruiken. Voor de "interessante" regels (d.w.z. regels die beginnen met "From:") voeren we de verwerking uit. 
+
+We kunnen de find string gebruiken om een zoekopdracht in de teksteditor te simuleren die regels vindt waar de gezochte tekens zich ergens in de regel bevindt. Aangezien find zoekt naar het voorkomen van een tekenreeks binnen een andere tekenreeks en ofwel de positie van de tekenreeks retourneert als de tekenreeks gevonden is ofwel -1 als de tekenreeks niet is gevonden, kunnen we de volgende lus schrijven om regels weer te geven die de tekenreeks "@uct.ac.za" bevatten (d.w.z. ze komen van de Universiteit van Kaapstad in Zuid-Afrika)
+
+~~~python
+with open('mbox-short.txt') as fhand:
+    for line in fhand:
+        line = line.rstrip()
+        if line.find('@uct.ac.za') == -1:
+            continue
+        print(line)
+~~~
+
+
+#### De gebruiker de bestandsnaam laten kiezen (direct vertaald uit py4e.com)
+
+We willen echt niet elke keer onze Python-code moeten bewerken als we een ander bestand willen verwerken. Het zou bruikbaarder zijn om de gebruiker te vragen om elke keer dat het programma wordt uitgevoerd de bestandsnaam in te voeren, zodat ze ons programma op verschillende bestanden kunnen gebruiken zonder de Python-code te wijzigen. Dit is vrij eenvoudig te doen door de bestandsnaam aan de gebruiker te vragen als volgt:
+
+~~~python
+fname = input("Geef de volledige bestandsnaam: ")
+with open(fname) as fhand:
+    for line in fhand:
+        line = line.rstrip()
+        if line.find('@uct.ac.za') == -1:
+            continue
+        print(line)
+~~~
+
+We lezen de bestandsnaam van de gebruiker en plaatsen deze in een variabele met de naam fname en openen dat bestand. Nu kunnen we het programma herhaaldelijk op verschillende bestanden uitvoeren.
+Voordat je naar het volgende gedeelte kijkt, kijk eens naar het bovenstaande programma en vraag jezelf af: "Wat kan hier mogelijk misgaan?" of "Wat zou onze vriendelijke gebruiker kunnen doen dat ervoor zou zorgen dat ons programma op onelegante wijze wordt afgesloten met een fout, waardoor we er niet zo cool uitzien in de ogen van onze gebruikers?"
+
+#### Remember...try en except? (direct vertaald uit py4e.com)
+
+Gebruikers zullen uiteindelijk alles doen wat ze kunnen om uw programma's te breken, hetzij per ongeluk of met kwade bedoelingen. In feite is een belangrijk onderdeel van elk softwareontwikkelingsteam een persoon of groep genaamd Quality Assurance (of kortweg QA) wiens taak het is om de gekste dingen te doen die mogelijk zijn in een poging de software te breken die de programmeur heeft gemaakt. 
+Het QA-team is verantwoordelijk voor het vinden van de gebreken in programma's voordat we het programma hebben geleverd aan de eindgebruikers die de software mogelijk kopen of ons salaris betalen om de software te schrijven. Het QA-team is dus de beste vriend van de programmeur. 
+Dus nu we de fout in het programma zien, kunnen we het elegant oplossen met behulp van de try/except structuur. We moeten ervan uitgaan dat het openen van het bestand kan mislukken en als volgt herstelcode toevoegen:
+
+~~~python
+fname = input("Geef de volledige bestandsnaam: ")
+try: 
+    with open(fname) as fhand:
+        for line in fhand:
+            line = line.rstrip()
+            #Skip de oninteressante regels
+            if line.find('@uct.ac.za') == -1:
+                continue
+            #Print de interessante regels
+            print(line)
+except:
+    print('File cannot be opened:', fname)
+    exit()
+~~~
+
+De exit() functie beëindigt het programma. 
+
+Wanneer onze gebruiker (of QA-team) nu onnozelheden of slechte bestandsnamen intypt, "vangen" we ze en herstellen we ze gracieus!
+
+### Meer info?
 
 Er zijn nog vele mogelijkheden om files en directories te bewerken.  
 Om deze te leren kennen kan je terecht bij https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files
