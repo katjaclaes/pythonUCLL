@@ -83,7 +83,7 @@ No commits yet
 nothing to commit (create/copy files and use "git add" to track)
 ~~~
 
-De output van dit commit **suggereert** het gebruik van **git add** te gebruiken, we komen hier zo dadelijk nog op terug.
+De output van dit commit **suggereert** het gebruik van **git add**, we komen hier zo dadelijk nog op terug.
 
 ### Code schrijven: Basket-item-class
 
@@ -430,6 +430,9 @@ $ git commit -m "Implementing exit-event"
 ~~~
 
 Wanneer je een **git log** opvraagt zie je dat de **git-historiek** zich langzaam maar zeker begint **op te bouwen**
+
+Moest je nu een fout getypt hebben in je commit message of je bent iets vergeten te vermelden dan kan je dit aanpassen via het commando **git commit --amend**. Probeer maar eens!
+Wanneer er een wijziging in je code werd doorgevoerd en eigenlijk wil je deze niet meer uitvoeren dan kan je gebruik maken van **git revert**. Dit command zal een nieuwe commit aanmaken waar de wijziging in ongedaan gemaakt wordt. Op die manier blijft de geschiedenis van je commits intact.
 
 ### Code schrijven: Afdrukken van items
 
